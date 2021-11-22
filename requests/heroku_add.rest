@@ -1,0 +1,7 @@
+POST https://afternoon-harbor-67261.herokuapp.com/api/persons
+Content-Type: application/json
+
+{
+  "name": "Testi",
+  "number": "12345"
+}
