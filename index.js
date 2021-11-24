@@ -8,8 +8,8 @@ const Contact = require('./models/contact')
 app.use(express.static('build'))
 app.use(express.json())
 
-morgan.token('body', function (req, res) { 
-  return JSON.stringify(req.body) 
+morgan.token('body', function (req) {
+  return JSON.stringify(req.body)
 })
 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
@@ -66,17 +66,11 @@ app.put('/api/persons/:id', (request, response, next) => {
 app.delete('/api/persons/:id', (request, response, next) => {
   Contact
     .findByIdAndRemove(request.params.id)
-    .then(result => {
+    .then(() => {
       response.status(204).end()
     })
     .catch(error => next(error))
 })
-
-/*
-const generateId = () => {
-  return Math.floor(Math.random() * 1000)
-}
-*/
 
 app.post('/api/persons', (request, response, next) => {
   const body = request.body
